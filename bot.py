@@ -30,10 +30,10 @@ class RotatingFileHandlerWithLimit(logging.handlers.RotatingFileHandler):
         super().doRollover()
 
 
+bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 async def main() -> None:
     dp = Dispatcher()
     dp.include_router(storage_checker.router)
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await dp.start_polling(bot)
 
 

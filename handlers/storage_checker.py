@@ -1,5 +1,5 @@
 import logging
-from aiogram import Router, html
+from aiogram import Router, html, F
 from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
 from site_parser import parse_product_info, get_product_list_data
@@ -34,6 +34,14 @@ async def command_start_handler(message: Message) -> None:
     )
 
 
+@router.message(F.text == "/map")
+async def command_storage_handler(message: Message) -> None:
+    await message.answer(
+        f"Я помогу тебе найти товар по названию или артикулу\n"
+        f"Введите запрос для поиска."
+    )
+
+
 @router.message()
 async def handle_message(message: Message):
     search_query = message.text.strip()
@@ -51,7 +59,8 @@ async def handle_message(message: Message):
             product = data[0]
             logging.info(f"Информация о продукте (словарь): {product}")
 
-            result_data = parse_product_info(product["art"])[0]
+            result_data = parse_product_info(product["art"])
+            print(f"-------------------->{result_data}")
             logging.info(f"Информация о продукте (словарь): {result_data}")
 
             required_keys = [

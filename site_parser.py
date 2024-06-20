@@ -145,6 +145,7 @@ def parse_product_info(search_query: str) -> list[dict]:
         driver = webdriver.Chrome(options=options)
 
         try:
+            print(f"------------->{product_url}")
             driver.get(product_url)
             clarify_stock_link = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, "ga-clarify-stock"))
@@ -165,7 +166,6 @@ def parse_product_info(search_query: str) -> list[dict]:
                     "//span[contains(text(), 'В шоуруме:')]/following-sibling::span",
                 ),
             }
-
             data = {
                 "title": product.get("title", "Неизвестно"),
                 "price": product.get("price", "Неизвестно"),
