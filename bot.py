@@ -8,8 +8,9 @@ from handlers import storage_checker
 from os import getenv
 
 
-TOKEN = "7438270511:AAHzG3xHVaAdvMIaPXtefHCqlrrRP2dshkM"
-# TOKEN = getenv("TELEGRAM_TOKEN")
+TOKEN = getenv("TELEGRAM_TOKEN")
+if not TOKEN:
+    raise RuntimeError("TELEGRAM_TOKEN must be set in the environment")
 PAGE_SIZE = 5  # Количество товаров на одной странице
 
 
